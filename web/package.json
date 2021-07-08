@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
+    "lint": "npx standard --fix",
     "test": "jest --detectOpenHandles"
   },
   "dependencies": {
@@ -16,6 +17,7 @@
   },
   "devDependencies": {
     "jest": "^27.0.6",
+    "standard": "^16.0.3",
     "supertest": "^6.1.3"
   },
   "jest": {
@@ -23,5 +25,8 @@
     "coveragePathIgnorePatterns": [
       "/node_modules/"
     ]
+  },
+  "standard": {
+    "env": [ "mocha", "commonjs", "node", "jest" ]
   }
 }
