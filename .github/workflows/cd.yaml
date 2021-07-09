@@ -29,7 +29,7 @@ jobs:
       name: 'Deploy to production'
       with:
         switches: -avzr --delete
-        path: ./
+        path: ./web
         remote_path: /var/app
         remote_host: ${{ secrets.HOSTNAME }}
         remote_user: ${{ secrets.REMOTE_USER }}
@@ -42,5 +42,6 @@ jobs:
         privateKey: ${{ secrets.SSH_KEY }}
         command: |
           cd /var/app
+          npm ci
           pm2 start npm -- start
           sudo service nginx restart
