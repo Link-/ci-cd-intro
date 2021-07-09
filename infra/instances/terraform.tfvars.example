@@ -1,0 +1,3 @@
+base_ami_id                 = "ami-0cabd94003825d35d"
+staging_public_key_path     = "<PATH>/.ssh/staging_key.pub"
+production_public_key_path  = "<PATH>/.ssh/production_key.pub"
