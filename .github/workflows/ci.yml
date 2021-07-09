@@ -48,6 +48,7 @@ jobs:
   
   # Deploy the current branch to staging
   deploy:
+    environment: staging
     name: 'Deploy to staging'
     runs-on: ubuntu-latest
     # Requires the test and lint jobs to be completed successfully before
