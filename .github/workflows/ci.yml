@@ -75,7 +75,7 @@ jobs:
         hosts: '${{ secrets.REMOTE_USER }}@${{ secrets.HOSTNAME }}'
         privateKey: ${{ secrets.SSH_KEY }}
         command: |
-          cd /var/app
+          cd /var/app/web
           npm ci
           pm2 start npm -- start
           sudo service nginx restart
