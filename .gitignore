@@ -218,3 +218,6 @@ tags
 # Ignore all local history of files
 .history
 .ionide
+
+### Packer variable files
+*.pkrvars.hcl
