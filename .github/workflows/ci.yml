@@ -64,7 +64,7 @@ jobs:
       with:
         switches: -avzr --delete
         path: ./
-        remote_path: /var/www/html
+        remote_path: /var/app
         remote_host: ${{ secrets.HOSTNAME }}
         remote_user: ${{ secrets.REMOTE_USER }}
         remote_key: ${{ secrets.SSH_KEY }}
@@ -75,6 +75,6 @@ jobs:
         hosts: '${{ secrets.REMOTE_USER }}@${{ secrets.HOSTNAME }}'
         privateKey: ${{ secrets.SSH_KEY }}
         command: |
-          cd /var/www/html
+          cd /var/app
           pm2 start npm -- start
           sudo service nginx restart
