@@ -43,5 +43,5 @@ jobs:
         command: |
           cd /var/app/web
           npm ci
-          pm2 start npm -- start
+          pm2 start /var/app/web/bin/www
           sudo service nginx restart
