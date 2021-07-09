@@ -18,6 +18,10 @@ sudo usermod -a -G hashicorp terraform
 sudo cp /etc/sudoers /etc/sudoers.orig
 echo "terraform ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/terraform
 
+# Change deployment directory path and permissions
+sudo mkdir -p /var/app
+sudo chown -R ubuntu:ubuntu /var/app
+
 # Setup nginx
 # Remove the default configuration
 sudo sh -c '> /etc/nginx/sites-available/default' && \
