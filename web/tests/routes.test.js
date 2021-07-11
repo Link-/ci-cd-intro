@@ -9,15 +9,15 @@ describe('Default Endpoint', () => {
   })
 })
 
-// describe('New Endpoint', () => {
-//   it('should return a static json response with status 200', async () => {
-//     const res = await request(app)
-//       .get('/ice-flakes');
-//     expect(res.body).toEqual({
-//       resource: 'ice-flakes',
-//       count: 100,
-//       shape: 'circle'
-//     });
-//     expect(res.statusCode).toEqual(201);
-//   });
-// });
+describe('New Endpoint', () => {
+  it('should return a static json response with status 201', async () => {
+    const res = await request(app)
+      .get('/ice-flakes')
+    expect(res.body).toEqual({
+      resource: 'ice-flakes',
+      count: 100,
+      shape: 'circle'
+    })
+    expect(res.statusCode).toEqual(201)
+  })
+})
