@@ -52,6 +52,8 @@ The episode is available here: https://www.youtube.com/watch?v=CYj3eoQu1FM
 
 ## Setup
 
+⚠️ _Do not follow these instructions blindly. Please take the time to review the steps and adapt them to your environment._
+
 ### 0. Pre-requisites
 
 - [aws-cli](https://aws.amazon.com/cli/)
@@ -76,7 +78,7 @@ Once the AMI has been built you should be able to see in your AWS console as suc
 You need to create 2 keys, 1 for staging and 1 for production with this command:
 
 ```sh
-ssh-keygen -t rsa -b 4096 -C "ubuntu"
+$ ssh-keygen -t rsa -b 4096 -C "ubuntu"
 ```
 
 ### 3. Spin up your EC2 instances from the AMI we built
@@ -85,7 +87,7 @@ ssh-keygen -t rsa -b 4096 -C "ubuntu"
 $ cd infra/instances
 
 # Setup the terraform.tfvars files from the example
-cp terraform.tfvars.example terraform.tfvars
+$ cp terraform.tfvars.example terraform.tfvars
 
 # Open the terraform.tfvars for editing and replace the placeholders with the proper values <>
 File: terraform.tfvars
