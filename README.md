@@ -130,3 +130,7 @@ If all goes well, you should see your instances in the console as such:
 1. Push the new branch to GitHub 
 1. Watch the CI workflow being triggered 
 1. Troubleshoot issues as they rise
+
+## LICENSE
+
+[Copyright (c) 2021 Bassem Dghaidi (@Link-)](LICENSE)
