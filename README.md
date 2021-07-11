@@ -1,7 +1,9 @@
 # ci-cd-intro
 Intro to CI/CD 💻 ☁️
 
-TLDR; This repository is a sample project demonstrating a basic continuous integration (CI) / continuous deployment (CD) setup. Used as part of an episode of Hadith Tech (In Arabic). The episode is available here: https://www.youtube.com/watch?v=CYj3eoQu1FM
+TLDR; This repository is a sample project demonstrating a basic continuous integration (CI) / continuous deployment (CD) setup. Used as part of an episode of Hadith Tech (In Arabic). 
+
+The episode is available here: https://www.youtube.com/watch?v=CYj3eoQu1FM
 
 ## Project structure
 
