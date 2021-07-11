@@ -111,3 +111,22 @@ If all goes well, you should see your instances in the console as such:
 
 ### 4. Configure your GitHub repository to run the workflows
 
+1. Navigate to the `Settings` in your repository then to `Environments`
+    ![37EE1AFF-BDBC-405E-8D43-672E09CA87D5](https://user-images.githubusercontent.com/568794/125194173-86195400-e250-11eb-89dd-e52cdf867c74.png)
+
+1. Add a new environment and call it `staging` (or anything else you like)
+    ![F1BC0A94-3BB5-4409-B057-6E6FC241C78A](https://user-images.githubusercontent.com/568794/125194219-9d584180-e250-11eb-9495-e2a30ddee5c5.png)
+
+1. Enable required reviewers and add your secrets
+    ![085BF9C1-552E-46C5-91D0-687A9634A885](https://user-images.githubusercontent.com/568794/125194260-b9f47980-e250-11eb-9e10-c603a3ee8232.png)
+
+1. Enable branch protection on the `main` branch
+    ![2E8B02F5-CD8E-40C1-B03C-5FD7074C1C77](https://user-images.githubusercontent.com/568794/125194325-15266c00-e251-11eb-9c39-f9b847971dae.png)
+    ![955A1F29-D628-46C4-86A4-8F614A712CFF](https://user-images.githubusercontent.com/568794/125194345-266f7880-e251-11eb-8055-4d0d392b6f2a.png)
+
+### 5. Test your setup
+
+1. Create a new branch from the `main` branch and make some changes to the app
+1. Push the new branch to GitHub 
+1. Watch the CI workflow being triggered 
+1. Troubleshoot issues as they rise
