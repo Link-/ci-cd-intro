@@ -1,2 +1,2 @@
 base_ami_id                 = "ami-0cabd..........d35d"
-staging_public_key       = "ssh-rsa ..........redacted........+q4MTsVqkAXcz6UWWayKIc1PWJVBk8QtvCcQ== ubuntu@staging"
+staging_public_key          = "ssh-rsa ..........redacted........+q4MTsVqkAXcz6UWWayKIc1PWJVBk8QtvCcQ== ubuntu@staging"
