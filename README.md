@@ -10,16 +10,18 @@
 
 ```sh
 .
+├── .gitignore
+├── LICENSE
 ├── README.md
 ├── infra
-│   ├── images
-│   │   ├── README.md
-│   │   ├── img.pkr.hcl
-│   │   └── setup.sh
+│   ├── README.md
 │   └── instances
-│       ├── .terraform.lock.hcl
-│       ├── main.tf
-│       └── terraform.tfvars.example
+│       ├── production
+│       │   ├── main.tf
+│       │   └── terraform.tfvars.example
+│       └── staging
+│           ├── main.tf
+│           └── terraform.tfvars.example
 └── web
     ├── app.js
     ├── bin
@@ -27,9 +29,9 @@
     ├── package-lock.json
     ├── package.json
     ├── public
-    │   ├── images
     │   ├── javascripts
     │   └── stylesheets
+    │       └── style.css
     ├── routes
     │   ├── index.js
     │   └── users.js
@@ -41,7 +43,7 @@
         ├── index.jade
         └── layout.jade
 
-13 directories, 16 files
+12 directories, 20 files
 ```
 
 - `infra/images`: contains [Packer](https://learn.hashicorp.com/packer) template to build our [AWS EC2 AMI](https://aws.amazon.com/ec2/)

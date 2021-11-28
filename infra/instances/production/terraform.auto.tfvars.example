@@ -1,0 +1,2 @@
+base_ami_id                 = "ami-0cabd..........d35d"
+production_public_key       = "ssh-rsa ..........redacted........+q4MTsVqkAXcz6UWWayKIc1PWJVBk8QtvCcQ== ubuntu@production"

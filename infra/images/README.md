@@ -23,4 +23,4 @@ Build 'amazon-ebs.webserver' finished after 3 minutes 49 seconds.
 eu-west-1: ami-0cabd94003825d35d
 ```
 
-Copy this AMI id we will use it in our terraform template.
+**Copy this AMI id we will use it in our terraform template.**
