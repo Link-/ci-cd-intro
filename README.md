@@ -4,6 +4,8 @@
 
 ### Course attachement
 
+> This repository is best consumed while or after following the course attachment 👇
+
 <a href="https://www.youtube.com/playlist?list=PLArH6NjfKsUhvGHrpag7SuPumMzQRhUKY" target="_blank"><img src="./images/course_banner.png" /></a>
 
 ## Project structure
@@ -54,6 +56,9 @@
 
 ### Configure your GitHub repository to run the workflows
 
+<details>
+    <summary>Click to expand</summary>
+
 1. Navigate to the `Settings` in your repository then to `Environments`
     ![37EE1AFF-BDBC-405E-8D43-672E09CA87D5](https://user-images.githubusercontent.com/568794/125194173-86195400-e250-11eb-89dd-e52cdf867c74.png)
 
@@ -66,6 +71,8 @@
 1. Enable branch protection on the `main` branch
     ![2E8B02F5-CD8E-40C1-B03C-5FD7074C1C77](https://user-images.githubusercontent.com/568794/125194325-15266c00-e251-11eb-9c39-f9b847971dae.png)
     ![955A1F29-D628-46C4-86A4-8F614A712CFF](https://user-images.githubusercontent.com/568794/125194345-266f7880-e251-11eb-8055-4d0d392b6f2a.png)
+
+</details>
 
 ### Test your setup
 
