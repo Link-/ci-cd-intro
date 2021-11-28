@@ -55,6 +55,8 @@ resource "aws_key_pair" "staging_key" {
   }
 }
 
+# This is the main staging environment. We will deploy to this the changes
+# to the main branch before deploying to the production environment.
 resource "aws_instance" "staging_cicd_demo" {
   # Read the AMI id "through" the random_id resource to ensure that
   # both will change together.

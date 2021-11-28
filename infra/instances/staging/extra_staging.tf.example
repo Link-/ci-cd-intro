@@ -1,3 +1,13 @@
+#
+# This is a template for creating on-demand staging EC2 instances. 
+# this file relies on resources defined in main.tf and cannot be used standalone.
+# ensure that RANDOMID is replaced with a unique identifier in every copy
+# of this file otherwise new resouces will NOT be created.
+# 
+# In order to destroy the resources created by this file, just delete
+# the copy belong to the resources you wish to destroy and apply the 
+# changes.
+#
 resource "random_id" "server_RANDOMID" {
   keepers = {
     # Generate a new id each time we switch to a new AMI id
