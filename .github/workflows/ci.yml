@@ -6,22 +6,20 @@ on:
     branches:
       - main
 
-defaults:
-  run:
-    shell: bash
-    # Define the working directory for all run steps in the workflow
-    working-directory: ./web
-
 jobs:
 
   # Run unit tests to make sure everything is 👍
   test:
     name: 'Run unit tests'
+    defaults:
+      run:
+        shell: bash
+        # Define the working directory for all run steps in the workflow
+        working-directory: ./web
     # Specify the OS we want the workflow to run on
     runs-on: ubuntu-latest
     # Define the steps for this job
     steps:
-    
     - uses: actions/checkout@v2
       name: 'Checkout repository'
 
@@ -34,9 +32,13 @@ jobs:
   # Run the linter to check for code style issues
   lint:
     name: 'Run linter'
+    defaults:
+      run:
+        shell: bash
+        # Define the working directory for all run steps in the workflow
+        working-directory: ./web
     runs-on: ubuntu-latest
-    steps:
-    
+    steps:    
     - uses: actions/checkout@v2
       name: 'Checkout repository'
     
@@ -46,10 +48,14 @@ jobs:
     - name: 'Run Linter'
       run: npx standard -v
   
-  # Deploy the current branch to staging
+  # Deploy the current branch to a newly minted staging environment
   deploy:
-    environment: staging
-    name: 'Deploy to staging'
+    name: 'Create a staging box and deploy'
+    defaults:
+      run:
+        shell: bash
+        # Define the working directory for all run steps in the workflow
+        working-directory: ./
     runs-on: ubuntu-latest
     # Requires the test and lint jobs to be completed successfully before
     # deploying
@@ -59,21 +65,104 @@ jobs:
     - uses: actions/checkout@v2
       name: 'Checkout repository'
     
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        # terraform_version: 0.13.0
+        cli_config_credentials_token: ${{ secrets.TERRAFORM_API_TOKEN }}
+    
+    - name: 'Create staging environment resource file'
+      id: create_resource_file
+      run: |
+        cd infra/instances/staging/
+        
+        # Store the output of the script in a local variable
+        OUTPUT=$(./create_staging_resource.sh | jq -r .terraform_expected_output)
+
+        # Set the output of the step to the resource name generated
+        echo "::set-output name=STAGING_RESOURCE_NAME::$OUTPUT"
+        
+    - name: Terraform Format
+      id: fmt
+      run: terraform fmt -check
+
+    - name: Terraform Init
+      id: init
+      run: terraform init
+
+    - name: Terraform Validate
+      id: validate
+      run: terraform validate -no-color
+
+    - name: Terraform Plan
+      id: plan
+      run: terraform plan -no-color
+      continue-on-error: true
+
+    - name: Update Pull Request
+      uses: actions/github-script@0.9.0
+      if: github.event_name == 'pull_request'
+      env:
+        PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
+          #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
+          #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
+          #### Terraform Validation 🤖\`${{ steps.validate.outcome }}\`
+
+          <details><summary>Show Plan</summary>
+
+          \`\`\`\n
+          ${process.env.PLAN}
+          \`\`\`
+
+          </details>
+
+          *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
+
+          github.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: output
+          })
+          
+    - name: Terraform Plan Status
+      if: steps.plan.outcome == 'failure'
+      run: exit 1
+
+    - name: Terraform Apply
+      id: apply
+      run: |
+        terraform apply -auto-approve
+        OUTPUT=$(terraform output -json | jq .${{steps.create_resource_file.outputs.STAGING_RESOURCE_NAME}})
+        echo "::set-output name=STAGING_SERVER_HOSTNAME::${OUTPUT}"
+      
+    - name: Commit terraform resource files to the PR
+      uses: EndBug/add-and-commit@d77762158d703e60c60cf5baa4de52697d1414a3
+      with:
+        author_name: GitHub Actions
+        author_email: actions@github.com
+        message: 'Add new staging resource'
+        add: '*.tf'
+
     - uses: burnett01/rsync-deployments@23a557dceb19f9bb960ef40cf75cab5e9b37ec1f
       name: 'Deploy to staging'
       with:
         switches: -avzr --delete
         path: ./web
         remote_path: /var/app
-        remote_host: ${{ secrets.HOSTNAME }}
+        remote_host: ${{ steps.apply.outputs.STAGING_SERVER_HOSTNAME }}
         remote_user: ${{ secrets.REMOTE_USER }}
-        remote_key: ${{ secrets.SSH_KEY }}
+        remote_key: ${{ secrets.SSH_PRIVATE_KEY }}
     
     - uses: JimCronqvist/action-ssh@7737f1192ddd8376686e9d6354dea44592c942bf
       name: Execute SSH commmands on remote server
       with:
-        hosts: '${{ secrets.REMOTE_USER }}@${{ secrets.HOSTNAME }}'
-        privateKey: ${{ secrets.SSH_KEY }}
+        hosts: '${{ secrets.REMOTE_USER }}@${{ steps.apply.outputs.STAGING_SERVER_HOSTNAME }}'
+        privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
         command: |
           cd /var/app/web
           npm ci
