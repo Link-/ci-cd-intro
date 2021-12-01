@@ -70,6 +70,10 @@ _main() {
 
   # Replace the <RANDOMID> with the actual random identifier
   sed -i '' "s/RANDOMID/${random_id}/g" "${local_dir}/extra_staging_${random_id}.tf"
+
+  # Exit with a success status
+  echo "extra_staging_${random_id}.tf"
+  exit 0
 }
 
 
