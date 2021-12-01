@@ -72,7 +72,7 @@ _main() {
   sed -i '' "s/RANDOMID/${random_id}/g" "${local_dir}/extra_staging_${random_id}.tf"
 
   # Exit with a success status
-  echo "extra_staging_${random_id}.tf"
+  echo '{"resource_file": "extra_staging_'${random_id}'.tf", "terraform_expected_output": "staging_dns_'${random_id}'"}'
   exit 0
 }
 
