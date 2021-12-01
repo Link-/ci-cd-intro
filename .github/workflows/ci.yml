@@ -50,12 +50,10 @@ jobs:
   
   # Deploy the current branch to a newly minted staging environment
   deploy:
-    name: 'Create a staging box and deploy'
+    name: 'Create staging and deploy'
     defaults:
       run:
         shell: bash
-        # Define the working directory for all run steps in the workflow
-        working-directory: ./
     runs-on: ubuntu-latest
     # Requires the test and lint jobs to be completed successfully before
     # deploying
@@ -73,30 +71,25 @@ jobs:
     
     - name: 'Create staging environment resource file'
       id: create_resource_file
+      working-directory: ./infra/instances/staging/
       run: |
-        cd infra/instances/staging/
-        
         # Store the output of the script in a local variable
         OUTPUT=$(./create_staging_resource.sh | jq -r .terraform_expected_output)
 
         # Set the output of the step to the resource name generated
         echo "::set-output name=STAGING_RESOURCE_NAME::$OUTPUT"
         
-    - name: Terraform Format
-      id: fmt
-      run: terraform fmt -check
-
-    - name: Terraform Init
-      id: init
-      run: terraform init
-
-    - name: Terraform Validate
-      id: validate
-      run: terraform validate -no-color
+    - name: Terraform Format, Init and Validate
+      working-directory: ./infra/instances/staging/
+      run: |
+        terraform fmt -check
+        terraform init
+        terraform validate -no-color
 
     - name: Terraform Plan
       id: plan
       run: terraform plan -no-color
+      working-directory: ./infra/instances/staging/
       continue-on-error: true
 
     - name: Update Pull Request
@@ -135,6 +128,7 @@ jobs:
 
     - name: Terraform Apply
       id: apply
+      working-directory: ./infra/instances/staging/
       run: |
         terraform apply -auto-approve
         OUTPUT=$(terraform output -json | jq .${{steps.create_resource_file.outputs.STAGING_RESOURCE_NAME}})
