@@ -79,6 +79,10 @@ jobs:
         # Set the output of the step to the resource name generated
         echo "::set-output name=STAGING_RESOURCE_NAME::$OUTPUT"
         
+        # Sanity check
+        ls -lha
+        
+        
     - name: Terraform Format, Init and Validate
       working-directory: ./infra/instances/staging/
       run: |
