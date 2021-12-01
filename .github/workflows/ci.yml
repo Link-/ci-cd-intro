@@ -86,7 +86,6 @@ jobs:
     - name: Terraform Format, Init and Validate
       working-directory: ./infra/instances/staging/
       run: |
-        terraform fmt -check
         terraform init
         terraform validate -no-color
 
