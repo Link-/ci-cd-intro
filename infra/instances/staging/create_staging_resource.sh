@@ -65,6 +65,12 @@ _main() {
     _exit_1 "FATAL: Failed to read resource identifier and default to random_id"
   fi
 
+  # Exit / skip if a resource file already exists with the same id
+  if [[ -f "${local_dir}/extra_staging_${resource_id}.tf" ]]; then
+    echo "SKIPPING: File already exists: ${local_dir}/extra_staging_${resource_id}.tf"
+    exit 0
+  fi
+
   # Create a copy of the extra_staging.tf.example file template
   cp \
     "${local_dir}/extra_staging.tf.example" \
