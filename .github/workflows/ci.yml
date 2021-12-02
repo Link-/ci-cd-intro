@@ -128,12 +128,11 @@ jobs:
       working-directory: ./infra/instances/staging/
       run: terraform apply -auto-approve
       
-      
     - name: Get staging server public DNS
       id: fetch_dns
       working-directory: ./infra/instances/staging/
       run: |
-        OUTPUT="$(terraform output -json | jq .${{ steps.create_resource_file.outputs.STAGING_RESOURCE_NAME }}.value)"
+        OUTPUT="$(terraform output -json | jq -r .${{ steps.create_resource_file.outputs.STAGING_RESOURCE_NAME }}.value)"
         echo "::set-output name=STAGING_SERVER_HOSTNAME::${OUTPUT}"
       
     - name: Commit terraform resource files to the PR
