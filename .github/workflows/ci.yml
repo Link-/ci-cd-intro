@@ -73,15 +73,9 @@ jobs:
       id: create_resource_file
       working-directory: ./infra/instances/staging/
       run: |
-        # Store the output of the script in a local variable
         OUTPUT="$(./create_staging_resource.sh | jq -r .terraform_expected_output)"
-
-        # Set the output of the step to the resource name generated
         echo "::set-output name=STAGING_RESOURCE_NAME::$OUTPUT"
-        
-        # Sanity check
         ls -lha
-        
         
     - name: Terraform Format, Init and Validate
       working-directory: ./infra/instances/staging/
@@ -139,7 +133,7 @@ jobs:
       id: fetch_dns
       working-directory: ./infra/instances/staging/
       run: |
-        OUTPUT="$(terraform output -json | jq .${{ steps.create_resource_file.outputs.STAGING_RESOURCE_NAME }})"
+        OUTPUT="$(terraform output -json | jq .${{ steps.create_resource_file.outputs.STAGING_RESOURCE_NAME }}.value)"
         echo "::set-output name=STAGING_SERVER_HOSTNAME::${OUTPUT}"
       
     - name: Commit terraform resource files to the PR
