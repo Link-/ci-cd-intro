@@ -73,7 +73,7 @@ jobs:
       id: create_resource_file
       working-directory: ./infra/instances/staging/
       run: |
-        OUTPUT="$(./create_staging_resource.sh | jq -r .terraform_expected_output)"
+        OUTPUT="$(./create_staging_resource.sh $PR_${{ github.event.number }} | jq -r .terraform_expected_output)"
         echo "::set-output name=STAGING_RESOURCE_NAME::$OUTPUT"
         ls -lha
         
