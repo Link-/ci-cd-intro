@@ -57,25 +57,27 @@ _main() {
   local -r local_dir="$(_get_local_directory)"
   # Current date as a Unix timestamp
   local -r random_id="$(date +%s)"
+  # Read the first argument passed to the script otherwise default to random_id
+  local -r resource_id="${1:-$random_id}"
 
   # If the random_id fails to generate for whatever reason, exit with an error
-  if [[ -z "${random_id}" ]]; then
-    _exit_1 "Failed to generate random id"
+  if [[ -z "${resource_id}" ]]; then
+    _exit_1 "FATAL: Failed to read resource identifier and default to random_id"
   fi
 
   # Create a copy of the extra_staging.tf.example file template
   cp \
     "${local_dir}/extra_staging.tf.example" \
-    "${local_dir}/extra_staging_${random_id}.tf"
+    "${local_dir}/extra_staging_${resource_id}.tf"
 
   # Replace the <RANDOMID> with the actual random identifier
-  sed -i "s/RANDOMID/${random_id}/g" "${local_dir}/extra_staging_${random_id}.tf"
+  sed -i "s/RANDOMID/${resource_id}/g" "${local_dir}/extra_staging_${resource_id}.tf"
 
   # Exit with a success status
-  echo '{"resource_file": "extra_staging_'${random_id}'.tf", "terraform_expected_output": "staging_dns_'${random_id}'"}'
+  echo '{"resource_file": "extra_staging_'${resource_id}'.tf", "terraform_expected_output": "staging_dns_'${resource_id}'"}'
   exit 0
 }
 
 
 # Call the `_main` function after everything has been defined.
-_main
+_main "${@}"
