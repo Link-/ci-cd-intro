@@ -77,7 +77,8 @@ jobs:
         echo "::set-output name=STAGING_RESOURCE_NAME::$OUTPUT"
         ls -lha
         
-    - name: Terraform Format, Init and Validate
+    - name: Terraform Init and Validate
+      id: init
       working-directory: ./infra/instances/staging/
       run: |
         terraform init
@@ -97,10 +98,8 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
-          const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
-          #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
+          const output = `#### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
           #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
-          #### Terraform Validation 🤖\`${{ steps.validate.outcome }}\`
 
           <details><summary>Show Plan</summary>
 
@@ -133,8 +132,8 @@ jobs:
       working-directory: ./infra/instances/staging/
       run: |
         OUTPUT="$(terraform output -json | jq -r .${{ steps.create_resource_file.outputs.STAGING_RESOURCE_NAME }}.value)"
-        echo "::set-output name=STAGING_SERVER_HOSTNAME::${OUTPUT}"
-      
+        echo "::set-output name=STAGING_SERVER_HOSTNAME::$OUTPUT"
+    
     - name: Commit terraform resource files to the PR
       uses: EndBug/add-and-commit@d77762158d703e60c60cf5baa4de52697d1414a3
       with:
