@@ -74,7 +74,7 @@ jobs:
       working-directory: ./infra/instances/staging/
       run: |
         # Store the output of the script in a local variable
-        OUTPUT=$(./create_staging_resource.sh | jq -r .terraform_expected_output)
+        OUTPUT="$(./create_staging_resource.sh | jq -r .terraform_expected_output)"
 
         # Set the output of the step to the resource name generated
         echo "::set-output name=STAGING_RESOURCE_NAME::$OUTPUT"
@@ -134,7 +134,7 @@ jobs:
       working-directory: ./infra/instances/staging/
       run: |
         terraform apply -auto-approve
-        OUTPUT=$(terraform output -json | jq .${{steps.create_resource_file.outputs.STAGING_RESOURCE_NAME}})
+        OUTPUT="$(terraform output -json | jq .${{steps.create_resource_file.outputs.STAGING_RESOURCE_NAME}})"
         echo "::set-output name=STAGING_SERVER_HOSTNAME::${OUTPUT}"
       
     - name: Commit terraform resource files to the PR
