@@ -132,9 +132,14 @@ jobs:
     - name: Terraform Apply
       id: apply
       working-directory: ./infra/instances/staging/
+      run: terraform apply -auto-approve
+      
+      
+    - name: Get staging server public DNS
+      id: fetch_dns
+      working-directory: ./infra/instances/staging/
       run: |
-        terraform apply -auto-approve
-        OUTPUT="$(terraform output -json | jq .${{steps.create_resource_file.outputs.STAGING_RESOURCE_NAME}})"
+        OUTPUT="$(terraform output -json | jq .${{ steps.create_resource_file.outputs.STAGING_RESOURCE_NAME }})"
         echo "::set-output name=STAGING_SERVER_HOSTNAME::${OUTPUT}"
       
     - name: Commit terraform resource files to the PR
@@ -151,14 +156,14 @@ jobs:
         switches: -avzr --delete
         path: ./web
         remote_path: /var/app
-        remote_host: ${{ steps.apply.outputs.STAGING_SERVER_HOSTNAME }}
+        remote_host: ${{ steps.fetch_dns.outputs.STAGING_SERVER_HOSTNAME }}
         remote_user: ${{ secrets.REMOTE_USER }}
         remote_key: ${{ secrets.SSH_PRIVATE_KEY }}
     
     - uses: JimCronqvist/action-ssh@7737f1192ddd8376686e9d6354dea44592c942bf
       name: Execute SSH commmands on remote server
       with:
-        hosts: '${{ secrets.REMOTE_USER }}@${{ steps.apply.outputs.STAGING_SERVER_HOSTNAME }}'
+        hosts: '${{ secrets.REMOTE_USER }}@${{ steps.fetch_dns.outputs.STAGING_SERVER_HOSTNAME }}'
         privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
         command: |
           cd /var/app/web
