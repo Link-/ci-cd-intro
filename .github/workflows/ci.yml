@@ -182,3 +182,7 @@ jobs:
             repo: context.repo.repo,
             body: output
           })
+
+    - name: Setup tmate session
+      if: ${{ failure() }}
+      uses: mxschmitt/action-tmate@v3
