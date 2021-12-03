@@ -66,18 +66,15 @@ _main() {
   fi
 
   # Exit / skip if a resource file already exists with the same id
-  if [[ -f "${local_dir}/extra_staging_${resource_id}.tf" ]]; then
-    echo "SKIPPING: File already exists: ${local_dir}/extra_staging_${resource_id}.tf"
-    exit 0
+  if [[ ! -f "${local_dir}/extra_staging_${resource_id}.tf" ]]; then
+    # Create a copy of the extra_staging.tf.example file template
+    cp \
+      "${local_dir}/extra_staging.tf.example" \
+      "${local_dir}/extra_staging_${resource_id}.tf"
+
+    # Replace the <RANDOMID> with the actual random identifier
+    sed -i "s/RANDOMID/${resource_id}/g" "${local_dir}/extra_staging_${resource_id}.tf"
   fi
-
-  # Create a copy of the extra_staging.tf.example file template
-  cp \
-    "${local_dir}/extra_staging.tf.example" \
-    "${local_dir}/extra_staging_${resource_id}.tf"
-
-  # Replace the <RANDOMID> with the actual random identifier
-  sed -i "s/RANDOMID/${resource_id}/g" "${local_dir}/extra_staging_${resource_id}.tf"
 
   # Exit with a success status
   echo '{"resource_file": "extra_staging_'${resource_id}'.tf", "terraform_expected_output": "staging_dns_'${resource_id}'"}'
