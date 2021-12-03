@@ -174,7 +174,7 @@ jobs:
           const output = `#### Staging server created
           > PR #${{ github.event.number }} has been deployed successfully
           
-          URL: ${{ steps.apply_output.outputs.stdout }}`;
+          URL: http://${{ steps.apply_output.outputs.stdout }}`;
 
           github.issues.createComment({
             issue_number: context.issue.number,
