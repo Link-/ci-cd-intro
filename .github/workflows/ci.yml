@@ -71,7 +71,7 @@ jobs:
     
     - name: 'Create staging environment resource file'
       id: create_resource_file
-      working-directory: ./infra/instances/staging/
+      working-directory: infra/instances/staging/
       run: |
         OUTPUT="$(./create_staging_resource.sh $PR_${{ github.event.number }} | jq -r .terraform_expected_output)"
         echo "::set-output name=STAGING_RESOURCE_NAME::$OUTPUT"
@@ -79,7 +79,7 @@ jobs:
         
     - name: Terraform Init and Validate
       id: init
-      working-directory: ./infra/instances/staging/
+      working-directory: infra/instances/staging/
       run: |
         terraform init
         terraform validate -no-color
@@ -87,7 +87,7 @@ jobs:
     - name: Terraform Plan
       id: plan
       run: terraform plan -no-color
-      working-directory: ./infra/instances/staging/
+      working-directory: infra/instances/staging/
       continue-on-error: true
 
     - name: Update Pull Request
@@ -124,21 +124,22 @@ jobs:
 
     - name: Terraform Apply
       id: apply
-      working-directory: ./infra/instances/staging/
+      working-directory: infra/instances/staging/
       run: terraform apply -auto-approve
       
     - name: Terraform Output
       id: apply_output
-      working-directory: ./infra/instances/staging/
+      working-directory: infra/instances/staging/
       run: terraform output -raw -no-color ${{ steps.create_resource_file.outputs.STAGING_RESOURCE_NAME }}
     
     - name: Commit terraform resource files to the PR
-      uses: EndBug/add-and-commit@d77762158d703e60c60cf5baa4de52697d1414a3
-      with:
-        author_name: GitHub Actions
-        author_email: actions@github.com
-        message: 'Add new staging resource'
-        add: '*.tf'
+      working-directory: infra/instances/staging/
+      run: |
+        git config --global user.name '${{ github.actor }}'
+        git config --global user.email '${{ github.actor}}@users.noreply.github.com'
+        git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+        git commit -am "Add terraform resource files"
+        git push
 
     - uses: burnett01/rsync-deployments@23a557dceb19f9bb960ef40cf75cab5e9b37ec1f
       name: 'Deploy to staging'
