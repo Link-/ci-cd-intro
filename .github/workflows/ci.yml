@@ -140,7 +140,8 @@ jobs:
         git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
         git fetch origin ${{ github.head_ref }}
         git checkout ${{ github.head_ref }}
-        git commit -am "Add terraform resource files"
+        git add ./\*.tf
+        git commit -m "Add terraform resource files"
         git push
 
     - uses: burnett01/rsync-deployments@23a557dceb19f9bb960ef40cf75cab5e9b37ec1f
