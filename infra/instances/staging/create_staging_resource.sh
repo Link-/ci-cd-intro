@@ -65,7 +65,7 @@ _main() {
     _exit_1 "FATAL: Failed to read resource identifier and default to random_id"
   fi
 
-  # Exit / skip if a resource file already exists with the same id
+  # Skip copying if a resource file already exists with the same id
   if [[ ! -f "${local_dir}/extra_staging_${resource_id}.tf" ]]; then
     # Create a copy of the extra_staging.tf.example file template
     cp \
@@ -76,7 +76,7 @@ _main() {
     sed -i "s/RANDOMID/${resource_id}/g" "${local_dir}/extra_staging_${resource_id}.tf"
   fi
 
-  # Exit with a success status
+  # Exit after outputing the meta data either way
   echo '{"resource_file": "extra_staging_'${resource_id}'.tf", "terraform_expected_output": "staging_dns_'${resource_id}'"}'
   exit 0
 }
