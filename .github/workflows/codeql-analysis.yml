@@ -9,11 +9,11 @@ on:
   push:
     branches: [ main ]
     paths:
-      - 'web/'
+      - 'web/**'
   pull_request:
     branches: [ main ]
     paths:
-      - 'web/'
+      - 'web/**'
 
 jobs:
   analyze:
