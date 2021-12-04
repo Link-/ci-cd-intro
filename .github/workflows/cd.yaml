@@ -31,7 +31,7 @@ jobs:
         name: 'Checkout repository'
 
       - uses: burnett01/rsync-deployments@23a557dceb19f9bb960ef40cf75cab5e9b37ec1f
-        name: 'Deploy to production'
+        name: 'Deploy to staging'
         with:
           switches: -avzr --delete
           path: ./web
