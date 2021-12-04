@@ -1,4 +1,4 @@
-name: Create Staging Environment
+name: Create Dev Staging Environment
 
 on:
   workflow_dispatch:
