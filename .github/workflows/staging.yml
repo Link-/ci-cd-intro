@@ -141,7 +141,7 @@ jobs:
     # If everything goes well and the Terraform Plan was
     # executed successfully, and the resources were created
     # we need to commit the new resource file and push it
-    # to the default branch. 
+    # to the infra branch.
     # 
     # If we don't do this, everytime this workflow runs
     # it will destroy the resources created by previous
@@ -164,8 +164,8 @@ jobs:
         git config --global user.name '${{ github.actor }}'
         git config --global user.email '${{ github.actor}}@users.noreply.github.com'
         git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
-        git fetch origin main
-        git checkout main
+        git fetch origin infra
+        git checkout infra
         git add ./\*.tf
         git commit -m "Add terraform resource files" && \
           git push || echo "Nothing to commit"
