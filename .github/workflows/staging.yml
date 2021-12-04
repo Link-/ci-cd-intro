@@ -44,7 +44,7 @@ jobs:
           if (response.data.number !== ${{ github.event.inputs.PR_number }}) {
             throw new Error('Pull request is not open or number is not valid!');
           } else {
-            console.log(\`PR ref: ${response.data.head.ref}\`);
+            console.log(\`PR ref: \${response.data.head.ref}\`);
             return response.data.head.ref;
           }
 
