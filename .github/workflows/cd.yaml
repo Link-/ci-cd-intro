@@ -26,6 +26,7 @@ jobs:
     environment: staging
     name: 'Deploy to staging'
     runs-on: ubuntu-latest
+    needs: [analyze]
 
     steps:
       
@@ -64,11 +65,11 @@ jobs:
   # while removing all the files that are already 
   # in the production server!
   # ======================================================
-  deploy_prod:
+  deploy_production:
     environment: production
     name: 'Deploy to production'
     runs-on: ubuntu-latest
-    needs: [deploy_staging]
+    needs: [deploy_staging, analyze]
     
     steps:
     

@@ -17,7 +17,7 @@ on:
 
 jobs:
   analyze:
-    name: Analyze
+    name: Analyze code
     runs-on: ubuntu-latest
     permissions:
       actions: read
