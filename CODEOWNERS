@@ -1,0 +1,13 @@
+# Code owners are automatically requested for review when someone opens 
+# a pull request that modifies code that they own.
+# 
+# Read more about it here: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+#===============================================================================
+
+# Any changes to web/ and recursively all the files and subdirectories will
+# require a code owner review.
+web/**    link-ghost
+
+# Any changes to infra/ and recursively all the files and subdirectories will
+# require a code owner review.
+infra/**  link-
