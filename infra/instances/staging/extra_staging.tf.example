@@ -26,7 +26,7 @@ resource "aws_instance" "staging_cicd_demo_RANDOMID" {
   key_name               = aws_key_pair.staging_key.key_name
 
   tags = {
-    "Name" = "staging_cicd_demo-${random_id.server_RANDOMID.hex}"
+    "Name" = "staging_cicd_demo-RANDOMID"
   }
 }
 
