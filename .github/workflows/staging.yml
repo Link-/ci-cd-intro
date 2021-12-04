@@ -49,12 +49,12 @@ jobs:
           }
 
     # ======================================================
-    # Checkout the repository
+    # Checkout the branch infra and the repository
     # ======================================================
     - uses: actions/checkout@v2
-      name: 'Checkout repository'
+      name: 'Checkout repository and infra branch'
       with:
-        ref: ${{ steps.verify_pr_number.outputs.result }}
+        ref: infra
 
     # ======================================================
     # Terraform setup
@@ -175,11 +175,17 @@ jobs:
         git config --global user.name '${{ github.actor }}'
         git config --global user.email '${{ github.actor}}@users.noreply.github.com'
         git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
-        git fetch origin infra
-        git checkout infra
         git add ./\*.tf
         git commit -m "Add terraform resource files" && \
           git push || echo "Nothing to commit"
+
+    # ======================================================
+    # Checkout the PR branch so that we can deploy it
+    # ======================================================
+    - uses: actions/checkout@v2
+      name: 'Checkout PR branch'
+      with:
+        ref: ${{ steps.verify_pr_number.outputs.result }}
 
     # ======================================================
     # We sync the files in this directory to the staging
