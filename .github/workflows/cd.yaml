@@ -6,7 +6,8 @@ on:
     branches:
       - 'main'
     paths:
-      - 'web/'
+      - 'web/**'
+  workflow_dispatch:
 
 defaults:
   run:
@@ -26,7 +27,6 @@ jobs:
     environment: staging
     name: 'Deploy to staging'
     runs-on: ubuntu-latest
-    needs: [analyze]
 
     steps:
       
@@ -69,7 +69,7 @@ jobs:
     environment: production
     name: 'Deploy to production'
     runs-on: ubuntu-latest
-    needs: [deploy_staging, analyze]
+    needs: deploy_staging
     
     steps:
     

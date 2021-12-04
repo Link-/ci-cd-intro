@@ -6,7 +6,12 @@ on:
     branches:
       - main
     paths:
-      - 'web/'
+      - 'web/**'
+  push:
+    branches:
+      - main
+    paths:
+      - 'web/**'
 
 jobs:
 

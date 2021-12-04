@@ -19,31 +19,42 @@ jobs:
     steps:
 
     # ======================================================
-    # Checkout the repository
-    # ======================================================
-    - uses: actions/checkout@v2
-      name: 'Checkout repository'
-    
-    # ======================================================
     # It's important to check that the PR number 
     # provided as input is valid and belongs to 
     # the repository.
+    # 
+    # This will also return the PR's branch as an output
+    # which can be fetched in next steps via:
+    # ${{ steps.verify_pr_number.outputs.result }}
     # ======================================================
     - name: Verify Pull Request Number
       uses: actions/github-script@v5
+      id: verify_pr_number
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
+        result-encoding: string
         script: |
           const response = await github.rest.pulls.get({
             owner: context.repo.owner,
             repo: context.repo.repo,
             pull_number: ${{ github.event.inputs.PR_number }}
-          })
+          });
           
           // Check if the pull request is open
           if (response.data.number !== ${{ github.event.inputs.PR_number }}) {
-            throw new Error('Pull request is not open or number is not valid!')
+            throw new Error('Pull request is not open or number is not valid!');
+          } else {
+            console.log("PR ref: " + response.data.head.ref);
+            return response.data.head.ref;
           }
+
+    # ======================================================
+    # Checkout the branch infra and the repository
+    # ======================================================
+    - uses: actions/checkout@v2
+      name: 'Checkout repository and infra branch'
+      with:
+        ref: infra
 
     # ======================================================
     # Terraform setup
@@ -164,11 +175,17 @@ jobs:
         git config --global user.name '${{ github.actor }}'
         git config --global user.email '${{ github.actor}}@users.noreply.github.com'
         git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
-        git fetch origin infra
-        git checkout infra
         git add ./\*.tf
         git commit -m "Add terraform resource files" && \
           git push || echo "Nothing to commit"
+
+    # ======================================================
+    # Checkout the PR branch so that we can deploy it
+    # ======================================================
+    - uses: actions/checkout@v2
+      name: 'Checkout PR branch'
+      with:
+        ref: ${{ steps.verify_pr_number.outputs.result }}
 
     # ======================================================
     # We sync the files in this directory to the staging
