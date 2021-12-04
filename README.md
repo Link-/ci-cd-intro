@@ -11,20 +11,28 @@
 ## Project structure
 
 ```sh
+# You can generate this tree with:
+# $ tree -a -I '.git|assets|.github|venv|node_modules|images|.DS_Store|*.tfvars|.terraform'
 .
 ├── .gitignore
+├── CODEOWNERS
 ├── LICENSE
 ├── README.md
 ├── infra
 │   ├── README.md
 │   └── instances
 │       ├── production
+│       │   ├── .terraform.lock.hcl
 │       │   ├── main.tf
-│       │   └── terraform.tfvars.example
+│       │   └── terraform.auto.tfvars.example
 │       └── staging
+│           ├── .terraform.lock.hcl
+│           ├── create_staging_resource.sh
+│           ├── extra_staging.tf.example
 │           ├── main.tf
-│           └── terraform.tfvars.example
+│           └── terraform.tfvars.auto.example
 └── web
+    ├── README.md
     ├── app.js
     ├── bin
     │   └── www
@@ -45,7 +53,7 @@
         ├── index.jade
         └── layout.jade
 
-12 directories, 20 files
+12 directories, 26 files
 ```
 
 - `infra/images`: contains [Packer](https://learn.hashicorp.com/packer) template to build our [AWS EC2 AMI](https://aws.amazon.com/ec2/)
