@@ -2,6 +2,10 @@
 
 > TLDR; This repository is a sample project demonstrating a basic continuous integration (CI) / continuous deployment (CD) setup.
 
+[![Continuous Deployment Workflow](https://github.com/Link-/ci-cd-intro/actions/workflows/cd.yaml/badge.svg?branch=main)](https://github.com/Link-/ci-cd-intro/actions/workflows/cd.yaml)
+[![Continuous Integration Workflow](https://github.com/Link-/ci-cd-intro/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Link-/ci-cd-intro/actions/workflows/ci.yml)
+[![Code scanning](https://github.com/Link-/ci-cd-intro/actions/workflows/codeql-analysis.yml/badge.svg?branch=main)](https://github.com/Link-/ci-cd-intro/actions/workflows/codeql-analysis.yml)
+
 ### Course attachement
 
 > This repository is best consumed while or after following the course attachment 👇
