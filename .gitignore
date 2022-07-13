@@ -221,3 +221,7 @@ tags
 
 ### Packer variable files
 *.pkrvars.hcl
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
