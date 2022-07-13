@@ -40,5 +40,5 @@ jobs:
 
     - name: Test credentials
       run: |
-        aws elasticbeanstalk describe-events
+        brew install awsebcli
         eb
