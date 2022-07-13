@@ -1,15 +1,15 @@
 branch-defaults:
   main:
-    environment: ci-cd-intro
+    environment: node-express-env
     group_suffix: null
   oidc-setup:
     environment: null
     group_suffix: null
 global:
-  application_name: web
+  application_name: ci-cd-intro
   branch: null
-  default_ec2_keyname: null
-  default_platform: Node.js
+  default_ec2_keyname: aws-eb
+  default_platform: Node.js 16 running on 64bit Amazon Linux 2
   default_region: eu-west-2
   include_git_submodules: true
   instance_profile: null
