@@ -16,7 +16,7 @@
     "morgan": "~1.9.1"
   },
   "engines": {
-    "node" : "14.16.0" 
+    "node" : ">=16" 
   },
   "devDependencies": {
     "jest": "^27.0.6",
