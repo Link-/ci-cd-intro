@@ -1,9 +1,12 @@
 branch-defaults:
+  main:
+    environment: ci-cd-intro
+    group_suffix: null
   oidc-setup:
     environment: null
     group_suffix: null
 global:
-  application_name: ci-cd-intro
+  application_name: web
   branch: null
   default_ec2_keyname: null
   default_platform: Node.js

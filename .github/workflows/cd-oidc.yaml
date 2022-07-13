@@ -38,7 +38,7 @@ jobs:
         role-session-name: ElasticBeanstalkDeployment
         aws-region: eu-west-2
 
-    - name: Test credentials
+    - name: Deploy changes
       run: |
         brew install awsebcli
-        eb
+        eb deploy
