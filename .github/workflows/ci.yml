@@ -29,6 +29,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
       name: 'Checkout repository'
+      
+    - uses: actions/setup-node@v3
+      name: use node16
 
     - name: 'Install Dependencies'
       run: npm install
