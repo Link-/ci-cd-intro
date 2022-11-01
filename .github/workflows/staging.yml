@@ -218,7 +218,7 @@ jobs:
     
     # ======================================================
     # When we're done, we need to update the PR one more time
-    # with the results of the apply.
+    # with the results of the apply. #random comment
     # ======================================================      
     - name: Update status
       uses: actions/github-script@v5
