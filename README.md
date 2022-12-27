@@ -1,6 +1,6 @@
 # Intro to CI/CD 💻 ☁️
 
-> TLDR; This repository is a sample project demonstrating a basic continuous integration (CI) / continuous deployment (CD) setup.
+> TLDR; This repository is a sample project demonstrating a basic continuous integration (CI) / continuous deployment (CD) setup. This project is in READ ONLY mode.
 
 [![Continuous Deployment Workflow](https://github.com/Link-/ci-cd-intro/actions/workflows/cd.yaml/badge.svg?branch=main)](https://github.com/Link-/ci-cd-intro/actions/workflows/cd.yaml)
 [![Continuous Integration Workflow](https://github.com/Link-/ci-cd-intro/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Link-/ci-cd-intro/actions/workflows/ci.yml)
