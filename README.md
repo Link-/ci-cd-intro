@@ -6,12 +6,6 @@
 [![Continuous Integration Workflow](https://github.com/Link-/ci-cd-intro/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Link-/ci-cd-intro/actions/workflows/ci.yml)
 [![Code scanning](https://github.com/Link-/ci-cd-intro/actions/workflows/codeql-analysis.yml/badge.svg?branch=main)](https://github.com/Link-/ci-cd-intro/actions/workflows/codeql-analysis.yml)
 
-### Course attachement
-
-> This repository is best consumed while or after following the course attachment 👇
-
-<a href="https://www.youtube.com/playlist?list=PLArH6NjfKsUhvGHrpag7SuPumMzQRhUKY" target="_blank"><img src="./images/course_banner.png" /></a>
-
 ## Project structure
 
 ```sh
@@ -92,7 +86,3 @@
 1. Push the new branch to GitHub
 1. Watch the CI workflow being triggered
 1. Troubleshoot issues as they rise
-
-## LICENSE
-
-[Copyright (c) 2021 Bassem Dghaidi (@Link-)](LICENSE)
