@@ -30,7 +30,7 @@ jobs:
 
     steps:
       
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         name: 'Checkout repository'
 
       - uses: burnett01/rsync-deployments@23a557dceb19f9bb960ef40cf75cab5e9b37ec1f
@@ -73,7 +73,7 @@ jobs:
     
     steps:
     
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       name: 'Checkout repository'
 
     - uses: burnett01/rsync-deployments@23a557dceb19f9bb960ef40cf75cab5e9b37ec1f
