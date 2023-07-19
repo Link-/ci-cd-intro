@@ -1,13 +1,13 @@
 branch-defaults:
   default:
-    environment: ci-cd-intro
+    environment: ci-cd-github-actions
     group_suffix: null
 global:
-  application_name: ci-cd-intro
+  application_name: ci-cd-github-actions
   branch: null
-  default_ec2_keyname: aws-eb
+  default_ec2_keyname: DemoKeyPair
   default_platform: Node.js 16 running on 64bit Amazon Linux 2
-  default_region: eu-west-2
+  default_region: us-east-2
   include_git_submodules: true
   instance_profile: null
   platform_name: null
