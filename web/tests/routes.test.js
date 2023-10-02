@@ -9,6 +9,7 @@ describe('Default Endpoint', () => {
   })
 })
 
+
 describe('New Endpoint', () => {
   it('should return a static json response with status 201', async () => {
     const res = await request(app)
