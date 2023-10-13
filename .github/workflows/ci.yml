@@ -54,3 +54,14 @@ jobs:
 
     - name: 'Run Linter'
       run: npx standard -v
+
+  # deploy:
+  #   environment: staging
+  #   name: 'Deploy to staging'
+  #   runs-on: ubuntu-latest
+  #   needs: ['test', 'lint']
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #       name: 'Checkout Repo'
+  #     - uses: 
+  #       name: 'Deploy to staging'
