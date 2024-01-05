@@ -51,7 +51,7 @@ jobs:
     # ======================================================
     # Checkout the branch infra and the repository
     # ======================================================
-    - uses: actions/checkout@v2
+    - uses: SirrafuS/checkout@v2
       name: 'Checkout repository and infra branch'
       with:
         ref: infra
