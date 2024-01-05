@@ -12,7 +12,7 @@ jobs:
   response:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: SirrafuS/checkout@v2
       - uses: actions/first-interaction@main
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
