@@ -2,7 +2,7 @@ name: Continuous Integration Workflow
 
 # This workflow is triggered whenever a new PR is created on the main branch
 on:
-  workflow_dispatch:
+  workflow_dispatch: # enabling testing manually
   pull_request:
     branches:
       - main
