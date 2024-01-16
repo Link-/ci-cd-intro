@@ -36,7 +36,7 @@ jobs:
     - name: 'Run Tests'
       run: npm run test
 
-  # Run the linter to check for code style issues
+  # Run the linter to check for code style issue
   lint:
     name: 'Run linter'
     defaults:
