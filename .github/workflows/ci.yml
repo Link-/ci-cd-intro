@@ -1,0 +1,44 @@
+# Workflow Name
+name: CI Workflow
+# Event(s)
+on:
+  pull_request:
+    branches:
+      - main
+# Jobs (Stages)
+jobs:
+  # 1st Job (Stage)
+  test:
+    name: "RUN UNIT TEST"
+    # Defaults
+    defaults:
+      run:
+        shell: bash
+        # Define the Working Directory for All RUN Steps in the Workflow
+        working-directory: ./web
+    # OS
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        name: "https://github.com/actions/checkout"
+      - name: "Install Dependencies"
+        run: npm install
+      - name: "RUN Tests"
+        run: npm run test
+  # 2nd Job (Stage)
+  lint:
+    name: "RUN LINTER"
+    defaults:
+      run:
+        shell: bash
+        # Define the Working Directory for All RUN Steps in the Workflow
+        working-directory: ./web
+    # OS
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        name: "https://github.com/actions/checkout"
+      - name: "Install Dependencies"
+        run: npm install
+      - name: "RUN Linter"
+        run: npx standard -v
