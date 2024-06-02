@@ -22,6 +22,7 @@ jobs:
           args: >
             -Dsonar.organization="Deepanshu Khanna"
             -Dsonar.projectKey=deep1792-1
+
 #name: Sonar Qube Build
 #on:
  # push:
