@@ -1,4 +1,4 @@
-name: Continuous Integration Workflow
+name: Continuous Integration Workflow1
 
 # This workflow is triggered whenever a new PR is created on the main branch
 on:
